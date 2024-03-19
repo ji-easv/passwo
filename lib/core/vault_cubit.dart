@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:password_manager/infrastructure/core/failures.dart';
-import 'package:password_manager/infrastructure/core/vault_api.dart';
-import 'package:password_manager/infrastructure/core/vault_state.dart';
+import 'package:password_manager/core/failures.dart';
+import 'package:password_manager/core/vault_api.dart';
+import 'package:password_manager/core/vault_state.dart';
 import 'package:password_manager/models/credential.dart';
 import 'package:password_manager/models/open_vault.dart';
 
-import '../protection.dart';
+import '../infrastructure/protection.dart';
 
 /*
 A Cubit would normally not have any instance variables (other than through its constructor). 

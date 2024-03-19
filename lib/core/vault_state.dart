@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:password_manager/infrastructure/core/failures.dart';
+import 'package:password_manager/core/failures.dart';
 import 'package:password_manager/models/credential.dart';
 
 enum VaultStatus {

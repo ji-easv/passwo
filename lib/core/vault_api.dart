@@ -2,7 +2,7 @@ import 'package:password_manager/infrastructure/protection.dart';
 import 'package:password_manager/models/credential.dart';
 import 'package:password_manager/models/open_vault.dart';
 
-import '../storage.dart';
+import '../infrastructure/storage.dart';
 import 'failures.dart';
 
 class VaultApi {
