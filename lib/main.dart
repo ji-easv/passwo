@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
+import 'package:logging_appenders/logging_appenders.dart';
+import 'package:password_manager/infrastructure/core/logger_bloc_observer.dart';
 
 void main() {
+  PrintAppender(
+    formatter: const ColorFormatter(),
+  ).attachToLogger(Logger.root);
+  Bloc.observer = LoggerBlocObserver();
   runApp(const MyApp());
 }
 
