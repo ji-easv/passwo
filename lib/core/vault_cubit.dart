@@ -147,4 +147,73 @@ class VaultCubit extends Cubit<VaultState> {
       ),
     );
   }
+
+  Future<void> updateCredential(
+      Credential? existingCredential, Credential newCredential) async {
+    // Vault must be open to add a credential
+    assert(state.status == VaultStatus.open);
+
+    // Emit 'saving' state so the UI can show a loading spinner
+    emit(state.ok(status: VaultStatus.saving));
+
+    try {
+      // 'unlock' (get a mutable copy of) credentials, then add a new credential
+      final credentials = state.credentials.unlock
+        ..remove(existingCredential)
+        ..add(newCredential);
+
+      // Save the new credentials immediately
+      await api.save(OpenVault(credentials: credentials, key: _key!));
+
+      // 'lock' (get immutable copy of) credentials and emit 'open' state
+      emit(
+        state.ok(
+          credentials: credentials.lock,
+          status: VaultStatus.open,
+        ),
+      );
+    } catch (e) {
+      // Transition back to 'open' state if something goes wrong
+      emit(
+        state.failed(
+          status: VaultStatus.open,
+          reason: SaveVaultFailure(),
+        ),
+      );
+      addError(e);
+    }
+  }
+
+  Future<void> deleteCredential(Credential credential) async {
+    // Vault must be open to delete a credential
+    assert(state.status == VaultStatus.open);
+
+    // Emit 'saving' state so the UI can show a loading spinner
+    emit(state.ok(status: VaultStatus.saving));
+
+    try {
+      // 'unlock' (get a mutable copy of) credentials, then remove the credential
+      final credentials = state.credentials.unlock..remove(credential);
+
+      // Save the new credentials immediately
+      await api.save(OpenVault(credentials: credentials, key: _key!));
+
+      // 'lock' (get immutable copy of) credentials and emit 'open' state
+      emit(
+        state.ok(
+          credentials: credentials.lock,
+          status: VaultStatus.open,
+        ),
+      );
+    } catch (e) {
+      // Transition back to 'open' state if something goes wrong
+      emit(
+        state.failed(
+          status: VaultStatus.open,
+          reason: SaveVaultFailure(),
+        ),
+      );
+      addError(e);
+    }
+  }
 }

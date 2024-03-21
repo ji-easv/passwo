@@ -1,7 +1,9 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/vault_cubit.dart';
 import '../models/credential.dart';
 import 'credential_screen.dart';
 
@@ -52,7 +54,8 @@ class CredentialListTile extends StatelessWidget {
           ),
           PopupMenuItem<MenuAction>(
             value: () {
-              // TODO: remove credential
+              final vault = context.read<VaultCubit>();
+              vault.deleteCredential(credential);
             },
             child: const Text('Remove'),
           ),

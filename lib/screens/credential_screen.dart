@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/core/vault_cubit.dart';
@@ -48,7 +50,7 @@ class _CredentialScreenState extends State<CredentialScreen> {
     if (widget.existingCredential == null) {
       vault.addCredential(credential);
     } else {
-      // TODO: update credential
+      vault.updateCredential(widget.existingCredential, credential);
     }
     Navigator.of(context).pop();
   }
@@ -145,7 +147,13 @@ class _PasswordFieldState extends State<PasswordField> {
         const SizedBox(width: 8),
         IconButton.outlined(
           onPressed: () {
-            // TODO: generate password
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#%^&*()';
+            final random = Random.secure();
+            final password = List.generate(16, (index) {
+              final index = random.nextInt(chars.length);
+              return chars[index];
+            }).join();
+            widget.controller.text = password;
           },
           icon: const Icon(Icons.casino),
         ),
