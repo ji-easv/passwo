@@ -13,7 +13,7 @@ class PasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter your master passwword'),
+        title: const Text('Enter your master password'),
         centerTitle: true,
       ),
       body: BlocConsumer<VaultCubit, VaultState>(

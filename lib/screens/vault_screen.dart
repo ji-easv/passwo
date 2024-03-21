@@ -30,7 +30,13 @@ class VaultScreen extends StatelessWidget {
         body: BlocConsumer<VaultCubit, VaultState>(
           listenWhen: (previous, current) =>
               current.status == VaultStatus.closed,
-          listener: (context, state) => Navigator.pop(context),
+          listener: (context, state) {
+            Navigator.pop(context);
+            // Make sure to also pop the vault screen when the vault gets closed
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+          },
           builder: (context, state) => CredentialList(
             credentials: state.credentials,
           ),

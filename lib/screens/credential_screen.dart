@@ -108,7 +108,7 @@ class UsernameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      decoration: const InputDecoration(labelText: 'Usernames'),
+      decoration: const InputDecoration(labelText: 'Username'),
     );
   }
 }
